@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'dart:async';
 
 void main() => runApp(new MyApp());
 
@@ -26,12 +29,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  static const channel = MethodChannel("flutter.testfairy.com/hello");
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  Future<Null> _openNewPage() async {
+    final response = await channel.invokeMethod("openPage", ["Hi From Flutter"]);
+    print(response);
+  }
+
+  Future<Null> _showDialog() async {
+    final response = await channel.invokeMethod("showDialog", ["Called From Flutter"]);
+    print(response);
+  }
+
+  Future<Null> _requestNetwork() async {
+    final response = await channel.invokeMethod("request", ["https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=English%20Premier%20League"]);
+    print(response);
   }
 
   @override
@@ -50,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: () => _openNewPage(),
                 child: Text("Open Second Activity / UIViewController"),
                 color: Colors.deepPurple,
                 textColor: Colors.white,
@@ -59,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: () => _showDialog(),
                 child: Text("Show Dialog / Alert"),
                 color: Colors.blueAccent,
                 textColor: Colors.white,
@@ -68,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: () => _requestNetwork(),
                 child: Text("Call Retrofit / Alamofire"),
                 color: Colors.teal,
                 textColor: Colors.white,
