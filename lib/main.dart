@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'second_route.dart';
 
 import 'dart:async';
 
-void main() => runApp(new MyApp());
+void main() {
+  MaterialPageRoute.debugEnableFadingRoutes = true;
+  runApp(new MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -14,11 +18,9 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
           primarySwatch: Colors.amber,
           buttonTheme: ButtonThemeData(height: 50.0)),
-      home:
-        Scaffold(body:
-          new MyHomePage(title: 'Flutter ❤️ Native'),
-        )
-      ,
+      home: Scaffold(
+        body: new MyHomePage(title: 'Flutter ❤️ Native'),
+      ),
     );
   }
 }
@@ -36,20 +38,29 @@ class _MyHomePageState extends State<MyHomePage> {
   static const channel = MethodChannel("flutter.testfairy.com/hello");
 
   Future<Null> _openNewPage() async {
-    final response = await channel.invokeMethod("openPage", ["Hi From Flutter"]);
+    final response =
+    await channel.invokeMethod("openPage", ["Hi From Flutter"]);
     print(response);
   }
 
   Future<Null> _showDialog() async {
-    final response = await channel.invokeMethod("showDialog", ["Called From Flutter"]);
+    final response =
+    await channel.invokeMethod("showDialog", ["Called From Flutter"]);
 //    print(response);
     final snackbar = SnackBar(content: Text(response));
     Scaffold.of(context).showSnackBar(snackbar);
   }
 
   Future<Null> _requestNetwork() async {
-    final response = await channel.invokeMethod("request", ["https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=English%20Premier%20League"]);
-    print(response);
+    final response = await channel.invokeMethod(
+        "request", ["https://www.thesportsdb.com/api/v1/json/1/"]);
+//    print(response);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SecondRoute(data: response),
+      ),
+    );
   }
 
   @override

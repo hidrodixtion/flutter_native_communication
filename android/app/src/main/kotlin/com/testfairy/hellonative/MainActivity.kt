@@ -3,21 +3,32 @@ package com.testfairy.hellonative
 import android.os.Bundle
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.Theme
-
+import com.google.gson.Gson
 import io.flutter.app.FlutterActivity
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.noButton
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.yesButton
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
-class MainActivity() : FlutterActivity() {
+class MainActivity : FlutterActivity() {
+    private lateinit var service: IService
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         GeneratedPluginRegistrant.registerWith(this)
 
         initFlutterChannel()
+    }
+
+    private fun initRetrofitService(baseUrl: String) {
+        val retrofit = Retrofit.Builder().baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        service = retrofit.create(IService::class.java)
     }
 
     private fun initFlutterChannel() {
@@ -29,7 +40,7 @@ class MainActivity() : FlutterActivity() {
             when (methodCall.method) {
                 "openPage" -> openSecondActivity(param)
                 "showDialog" -> showDialog(param, result)
-                "request" -> callService(param)
+                "request" -> callService(param, result)
                 else -> return@setMethodCallHandler
             }
         }
@@ -55,7 +66,26 @@ class MainActivity() : FlutterActivity() {
                 .show()
     }
 
-    private fun callService(url: String) {
+    private fun callService(url: String, channelResult: MethodChannel.Result) {
+        val dialog = MaterialDialog.Builder(this)
+                .theme(Theme.LIGHT)
+                .title("Getting Data")
+                .progress(true, 0)
+                .progressIndeterminateStyle(true)
+                .build()
+        dialog.show()
 
+        initRetrofitService(url)
+        service.getEPLTeams().enqueue(object : Callback<TeamResponse> {
+            override fun onFailure(call: Call<TeamResponse>?, t: Throwable?) {
+                dialog.dismiss()
+                channelResult.error("FAILURE", "CALL FAILED", t?.localizedMessage)
+            }
+
+            override fun onResponse(call: Call<TeamResponse>?, response: Response<TeamResponse>?) {
+                dialog.dismiss()
+                channelResult.success(Gson().toJson(response?.body()?.teams))
+            }
+        })
     }
 }
