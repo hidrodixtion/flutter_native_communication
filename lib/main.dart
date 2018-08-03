@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: new ThemeData(
           primarySwatch: Colors.amber,
-          buttonTheme: ButtonThemeData(height: 50.0)),
-      home: Scaffold(
+          buttonTheme: const ButtonThemeData(height: 50.0)),
+      home: new Scaffold(
         body: new MyHomePage(title: 'Flutter ❤️ Native'),
       ),
     );
@@ -35,7 +35,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static const channel = MethodChannel("flutter.testfairy.com/hello");
+  static const channel = const MethodChannel("flutter.testfairy.com/hello");
 
   Future<Null> _openNewPage() async {
     final response =
@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //    print(response);
     Navigator.push(
       context,
-      MaterialPageRoute(
+      new MaterialPageRoute(
         builder: (context) => SecondRoute(data: response),
       ),
     );
@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return new Scaffold(
       appBar: new AppBar(
         // the App.build method, and use it to set our appbar title.
-        title: Center(
+        title: new Center(
           child: new Text(widget.title),
         ),
       ),
@@ -76,29 +76,29 @@ class _MyHomePageState extends State<MyHomePage> {
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
+            new Padding(
               padding: const EdgeInsets.all(16.0),
-              child: RaisedButton(
+              child: new RaisedButton(
                 onPressed: () => _openNewPage(),
-                child: Text("Open Second Activity / UIViewController"),
+                child: new Text("Open Second Activity / UIViewController"),
                 color: Colors.deepPurple,
                 textColor: Colors.white,
               ),
             ),
-            Padding(
+            new Padding(
               padding: const EdgeInsets.all(16.0),
-              child: RaisedButton(
+              child: new RaisedButton(
                 onPressed: () => _showDialog(),
-                child: Text("Show Dialog / Alert"),
+                child: new Text("Show Dialog / Alert"),
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),
             ),
-            Padding(
+            new Padding(
               padding: const EdgeInsets.all(16.0),
-              child: RaisedButton(
+              child: new RaisedButton(
                 onPressed: () => _requestNetwork(),
-                child: Text("Call Retrofit / Alamofire"),
+                child: new Text("Call Retrofit / Alamofire"),
                 color: Colors.teal,
                 textColor: Colors.white,
               ),
