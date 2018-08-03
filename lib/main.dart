@@ -14,7 +14,11 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
           primarySwatch: Colors.amber,
           buttonTheme: ButtonThemeData(height: 50.0)),
-      home: new MyHomePage(title: 'Flutter ❤️ Native'),
+      home:
+        Scaffold(body:
+          new MyHomePage(title: 'Flutter ❤️ Native'),
+        )
+      ,
     );
   }
 }
@@ -38,7 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<Null> _showDialog() async {
     final response = await channel.invokeMethod("showDialog", ["Called From Flutter"]);
-    print(response);
+//    print(response);
+    final snackbar = SnackBar(content: Text(response));
+    Scaffold.of(context).showSnackBar(snackbar);
   }
 
   Future<Null> _requestNetwork() async {
