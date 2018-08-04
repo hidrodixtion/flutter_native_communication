@@ -7,6 +7,6 @@ target 'Runner' do
 
   # Pods for Runner
   pod 'Alamofire', '~> 4.7'
-  pod 'PKHUD', '~> 5.0'
+  pod 'JGProgressHUD'
   pod 'SwiftyJSON', '~> 4.0'
 end

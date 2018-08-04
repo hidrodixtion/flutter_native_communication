@@ -26,10 +26,10 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
-        <!--View Controller-->
+        <!--Second View Controller-->
         <scene sceneID="fgg-BG-h4Q">
             <objects>
-                <viewController id="ODo-e4-wxv" sceneMemberID="viewController">
+                <viewController id="ODo-e4-wxv" customClass="SecondViewController" customModule="Runner" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sq3-UG-ai0"/>
                         <viewControllerLayoutGuide type="bottom" id="Se0-fP-gh0"/>
@@ -37,18 +37,39 @@
                     <view key="view" contentMode="scaleToFill" id="52O-Ks-ZUN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wkd-wf-UwY">
+                                <rect key="frame" x="164.5" y="317.5" width="45" height="33"/>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="wkd-wf-UwY" firstAttribute="centerX" secondItem="52O-Ks-ZUN" secondAttribute="centerX" id="2xn-hV-hjj"/>
+                            <constraint firstItem="wkd-wf-UwY" firstAttribute="centerY" secondItem="52O-Ks-ZUN" secondAttribute="centerY" id="kK6-qs-vhk"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="KJv-Dm-cJI"/>
+                    <navigationItem key="navigationItem" id="KJv-Dm-cJI">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="89o-Mw-2dP">
+                            <connections>
+                                <action selector="onBtnDoneClicked:" destination="ODo-e4-wxv" id="9cm-rJ-TvD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="txtTitle" destination="wkd-wf-UwY" id="7sZ-vG-7XV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbK-4K-D0W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1936.8" y="259.52023988005999"/>
+            <point key="canvasLocation" x="2070" y="254"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5Tc-jg-SKo">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="V7y-ad-hWQ" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavSecond" automaticallyAdjustsScrollViewInsets="NO" id="V7y-ad-hWQ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="a2w-fz-i1w">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -61,7 +82,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W8g-t8-w9k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="997.60000000000002" y="259.52023988005999"/>
+            <point key="canvasLocation" x="1302" y="254"/>
         </scene>
     </scenes>
 </document>
