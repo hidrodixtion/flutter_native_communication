@@ -12,14 +12,14 @@ class SecondRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     final List jsonList = json.decode(data);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Teams"),
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Teams"),
       ),
-      body: ListView.builder(
+      body: new ListView.builder(
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(jsonList[index]["strTeam"]),
+          return new ListTile(
+            title: new Text(jsonList[index]["strTeam"]),
             onTap: () {},
           );
         },

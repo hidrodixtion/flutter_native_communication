@@ -39,15 +39,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<Null> _openNewPage() async {
     final response =
-    await channel.invokeMethod("openPage", ["Hi From Flutter"]);
+        await channel.invokeMethod("openPage", ["Hi From Flutter"]);
     print(response);
   }
 
   Future<Null> _showDialog() async {
     final response =
-    await channel.invokeMethod("showDialog", ["Called From Flutter"]);
+        await channel.invokeMethod("showDialog", ["Called From Flutter"]);
 //    print(response);
-    final snackbar = SnackBar(content: Text(response));
+    final snackbar = new SnackBar(content: new Text(response));
     Scaffold.of(context).showSnackBar(snackbar);
   }
 
@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.push(
       context,
       new MaterialPageRoute(
-        builder: (context) => SecondRoute(data: response),
+        builder: (context) => new SecondRoute(data: response),
       ),
     );
   }
