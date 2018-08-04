@@ -76,10 +76,6 @@ import JGProgressHUD
         Alamofire.request(fullUrl).responseJSON { (response) in
             hud.dismiss()
             
-            print(response.request)
-            print(response.response)
-            print(response.result)
-            
             if let data = response.result.value {
                 let json = JSON(data)
                 result(json["teams"].rawString())

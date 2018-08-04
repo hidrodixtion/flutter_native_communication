@@ -24,6 +24,10 @@ class MainActivity : FlutterActivity() {
         initFlutterChannel()
     }
 
+    /**
+     * Initialize retrofit service
+     * @baseUrl Endpoint Host
+     */
     private fun initRetrofitService(baseUrl: String) {
         val retrofit = Retrofit.Builder().baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -31,6 +35,9 @@ class MainActivity : FlutterActivity() {
         service = retrofit.create(IService::class.java)
     }
 
+    /**
+     * Initialize MethodChannel and add cases of every methods that will be sent from Flutter
+     */
     private fun initFlutterChannel() {
         val channel = MethodChannel(flutterView, "flutter.testfairy.com/hello")
         channel.setMethodCallHandler { methodCall, result ->
@@ -46,10 +53,20 @@ class MainActivity : FlutterActivity() {
         }
     }
 
+    /**
+     * Open second activity
+     * @info Info argument from Flutter
+     */
     private fun openSecondActivity(info: String) {
         startActivity<SecondActivity>("info" to info)
     }
 
+    /**
+     * Show a Material dialog. We use MaterialDialog library to show a Material look, instead of
+     * default dialog from this FlutterActivity.
+     * @content Content of the dialog
+     * @channelResult Callback with argument for Flutter
+     */
     private fun showDialog(content: String, channelResult: MethodChannel.Result) {
 //        alert(content, "Native Dialog") {
 //            yesButton { channelResult.success("Ok was pressed") }
@@ -66,6 +83,11 @@ class MainActivity : FlutterActivity() {
                 .show()
     }
 
+    /**
+     * Call Retrofit service
+     * @url Endpoint
+     * @channelResult Callback with argument for Flutter
+     */
     private fun callService(url: String, channelResult: MethodChannel.Result) {
         val dialog = MaterialDialog.Builder(this)
                 .theme(Theme.LIGHT)
